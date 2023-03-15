@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import List from './List'
 import Alert from './Alert'
+import { AiTwotoneBulb } from 'react-icons/ai';
 
 
 function App() {
@@ -55,9 +56,20 @@ const removeItem = (id) => {
   setList(list.filter((item)=> item.id !== id))
   showAlert(true,'danger','Item Removed')
 }
+// light mode
+const [theme, setTheme] = useState('light')
+const toggleTheme = ()=> {
+  if(theme === 'light') {
+    setTheme('dark')
+  } else {
+    setTheme('light')
+  }
+}
+
 
   return (
-            <section className='section-center'>
+            <section className={`section-center ${theme}`}>
+              <button className='mode' onClick={toggleTheme} ><AiTwotoneBulb/></button>
                 <form  className='items-form' onSubmit={handelSubmit}>
                     {alert.show && <Alert {...alert} removeAlert={showAlert} list={list} /> }
                     <h3>Todo List</h3>
